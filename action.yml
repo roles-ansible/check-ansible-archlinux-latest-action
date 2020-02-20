@@ -1,5 +1,5 @@
-name: Check Ansible Debian stable
-description: Check ansible role or playbook with the debian:stable docker container
+name: Check Ansible Fedora latest
+description: Check ansible role or playbook with the fedora:latest docker container
 author: L3D <l3d@c3woc.de>
 
 inputs: 
