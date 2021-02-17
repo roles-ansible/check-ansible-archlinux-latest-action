@@ -10,11 +10,8 @@ LABEL "com.github.actions.icon"="aperture"
 LABEL "com.github.actions.color"="green"
 
 RUN pacman -Syu --noconfirm && pacman -S --noconfirm \
-    python \
-    python-pip \
+    ansible \
     git
-
-RUN pip3 install setuptools && pip3 install ansible
 
 RUN ansible --version
 
