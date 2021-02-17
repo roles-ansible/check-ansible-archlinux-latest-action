@@ -9,7 +9,12 @@ LABEL "com.github.actions.description"="Check ansible role or playbook with Arch
 LABEL "com.github.actions.icon"="aperture"
 LABEL "com.github.actions.color"="green"
 
-RUN pacman -Syu --noconfirm && pacman -S --noconfirm \
+# TEMP-FIX for pacman issue from https://github.com/sickcodes/Docker-OSX/pull/150/files
+RUN patched_glibc=glibc-linux4-2.33-4-x86_64.pkg.tar.zst && \
+curl -LO "https://repo.archlinuxcn.org/x86_64/$patched_glibc" && \
+bsdtar -C / -xvf "$patched_glibc"
+
+RUN pacman -Sy --noconfirm && pacman -S --noconfirm \
     ansible \
     git
 
