@@ -50,7 +50,10 @@ ansible::test::role() {
 EOF
 
   # execute playbook
-  ansible-playbook  --connection=local --limit localhost deploy.yml --tags "${TAGS}" --skip-tags "${SKIPTAGS}"
+  ADDITIONAL_OPTS=""
+  if [[ -n "$TAGS" ]] ; then ADDITIONAL_OPTS+="--tags=${TAGS} " ; fi
+  if [[ -n "$SKIPTAGS" ]] ; then ADDITIONAL_OPTS+="--skip-tags=${SKIPTAGS} " ; fi
+  ansible-playbook  --connection=local --limit localhost deploy.yml "${ADDITIONAL_OPTS}"
 }
 ansible::test::playbook() {
   : "${TARGETS?No targets to check. Nothing to do.}"
@@ -65,8 +68,11 @@ ${HOSTS} ansible_python_interpreter=/usr/bin/python3 ansible_connection=local an
 EOF
 
   # execute playbook
+  ADDITIONAL_OPTS=""
+  if [[ -n "$TAGS" ]] ; then ADDITIONAL_OPTS+="--tags=${TAGS} " ; fi
+  if [[ -n "$SKIPTAGS" ]] ; then ADDITIONAL_OPTS+="--skip-tags=${SKIPTAGS} " ; fi
   # shellcheck disable=SC2086
-  ansible-playbook --connection=local --inventory host.ini ${TARGETS}
+  ansible-playbook --connection=local "${ADDITIONAL_OPTS}" --inventory host.ini ${TARGETS}
 }
 
 # make sure git is up to date
