@@ -83,7 +83,8 @@ Alternatively, you can run the ansible check only on certain branches:
 on:
   push:
     branches:
-    - stable
+    - main
+    - dev
     - release/v*
 ```
 
