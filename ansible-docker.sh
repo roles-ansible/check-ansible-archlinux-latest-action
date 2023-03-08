@@ -53,6 +53,7 @@ EOF
   ADDITIONAL_OPTS=""
   if [[ -n "$TAGS" ]] ; then ADDITIONAL_OPTS+="--tags=${TAGS} " ; fi
   if [[ -n "$SKIPTAGS" ]] ; then ADDITIONAL_OPTS+="--skip-tags=${SKIPTAGS} " ; fi
+  # shellcheck disable=SC2086
   ansible-playbook  --connection=local --limit localhost deploy.yml ${ADDITIONAL_OPTS}
 }
 ansible::test::playbook() {
